@@ -1,11 +1,12 @@
+import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
-
 const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
       required: [true, 'Email is required'],
       unique: [true, 'Email already exists'],
+      minLength: [3, 'Username must be at least 3 characters'],
       match: [
         // eslint-disable-next-line no-useless-escape
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -34,6 +35,11 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre('save', function saveUser(next) {
   const user = this;
+  // Encrypting the passwrds via bcrypt
+  const SALT = bcrypt.genSaltSync(9);
+  const hashedPassword = bcrypt.hashSync(user.password, SALT);
+  user.password = hashedPassword;
+
   //to give a random avtar to users.
   user.avatar = `https://robohash.org/${user.username}`;
   next();
