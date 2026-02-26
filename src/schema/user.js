@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
+// Remeber when you are using promise based syntax like async then do not ccall next() and do not use it in middleware.But if you are using cb function then there you have to use next() while creating middlewaare
 userSchema.pre('save', function saveUser() {
   const user = this;
   // Encrypting the passwrds via bcrypt
