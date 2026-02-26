@@ -11,7 +11,7 @@ export const validate = (schema) => {
       
       let explanation = [];
       let errorMessage='';
-      error.issues.forEach((key) => {
+      error.errors.forEach((key) => {
         explanation.push(key.path[0] + ' '+key.message);
         errorMessage += ' : ' + key.path[0]+ key.message;
       });
