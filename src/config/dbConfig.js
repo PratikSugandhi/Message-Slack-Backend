@@ -10,6 +10,7 @@ export default async function connectDB() {
     } else if (NODE_ENV === 'production') {
       await mongoose.connect(PROD_DB_URL);
     }
+    
     console.log(`Connected to mongodb database from ${NODE_ENV} environment`);
   } catch (error) {
     console.log('Error connecting to database', error);

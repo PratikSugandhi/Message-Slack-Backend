@@ -36,6 +36,7 @@ export const signUpService = async (data) => {
 export const signInService = async (data) => {
   try {
     const user = await userRepository.getByEmail(data.email);
+    
     if (!user) {
       throw new ClientError({
         explanation: 'Invalid data sent from the client',

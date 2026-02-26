@@ -5,13 +5,15 @@ const userRepository = {
 
 
     getByEmail: async function (email) {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: email });
+        console.log("Email from getByEmail is ",user);
+        
         return user;
     },
 
 
     getByUsername: async function (username) {
-         const user = await User.findOne({ username }).select('-password'); // exclude password
+         const user = await User.findOne({ username })
         return user;
     }
 };

@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.pre('save', function saveUser(next) {
+userSchema.pre('save', function saveUser() {
   const user = this;
   // Encrypting the passwrds via bcrypt
   const SALT = bcrypt.genSaltSync(9);
@@ -42,7 +42,6 @@ userSchema.pre('save', function saveUser(next) {
 
   //to give a random avtar to users.
   user.avatar = `https://robohash.org/${user.username}`;
-  next();
 });
 
 const User = mongoose.model('User', userSchema);
