@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-import { MAIL_ID, MAIL_PASSWORD } from './serverConfig';
+import { MAIL_ID, MAIL_PASSWORD } from './serverConfig.js';
 
 // CREATING THE transporter for nodemailer
 export default nodemailer.createTransport({
