@@ -4,8 +4,8 @@ import { ExpressAdapter } from '@bull-board/express';
 
 import mailQueue from '../queues/mailQueue.js';
 import testQueue from '../queues/testQueue.js';
-
-const bullServerAdapter = new ExpressAdapter();
+// ExpressAdapter connects express app to bull board UI
+const bullServerAdapter = new ExpressAdapter(); // prepare bull board to work inisde express app.
 bullServerAdapter.setBasePath('/ui');
 
 createBullBoard({
