@@ -1,3 +1,7 @@
+// We import the processor file so that the queue starts listening for jobs when the application boots.
+
+// Without importing it, the processor will never register itself to the queue — and your jobs will just sit in Redis unprocessed.
+
 import '../processors/mailProcessor.js'
 
 import mailQueue from '../queues/mailQueue.js';
