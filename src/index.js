@@ -6,9 +6,10 @@ import { Server } from 'socket.io';
 import bullServerAdapter from './config/bullBoardConfig.js';
 import connectDB from './config/dbConfig.js';
 import { PORT } from './config/serverConfig.js';
+import messageHandlers from './controllers/messageSocketController.js';
 import apiRouter from './routes/apiRoutes.js'
-import messageHandlers from './services/messageSocketController.js';
-app = express();
+
+const app = express();
 
 const server = createServer(app); // create the http server on app or express server.
 const io = new Server(server);  // create the socket io server on http server
@@ -28,7 +29,7 @@ io.on('connection', (socket) => {
   messageHandlers(io, socket);
 });
 
-app.listen(PORT, async () => {
+server.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
 });

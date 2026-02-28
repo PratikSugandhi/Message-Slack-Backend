@@ -6,6 +6,7 @@ export default function messageHandlers(io, socket) {
     console.log(data, typeof data);
     const messageResponse = await createMessageService(data);
     socket.broadcast.emit(NEW_MESSAGE_RECEIVED_EVENT, messageResponse);
+    // here cb is acknowlegment
     cb({
       success: true,
       message: 'Successfully created the message',
