@@ -2,7 +2,8 @@ import express from 'express';
 import {createServer} from 'http';
 import { StatusCodes } from 'http-status-codes';
 import { Server } from 'socket.io';
-
+import ChannelSocketHandlers from './controllers/channelSocketController.js'
+import MessageSocketHandlers from './controllers/messageSocketController.js'
 import bullServerAdapter from './config/bullBoardConfig.js';
 import connectDB from './config/dbConfig.js';
 import { PORT } from './config/serverConfig.js';
@@ -26,7 +27,8 @@ app.get('/ping', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  messageHandlers(io, socket);
+   MessageSocketHandlers(io, socket);
+  ChannelSocketHandlers(io, socket);
 });
 
 server.listen(PORT, async () => {
