@@ -37,7 +37,7 @@ export const getChannelByIdService = async (channelId, userId) => {
     );
 
     console.log('Channel in service', channel);
-
+    // Here we can destructure the channel and message and return all like return {...channel,message}.But this will brings some extra part too like docs and many more in it
     return {
       messages,
       _id: channel._id,
