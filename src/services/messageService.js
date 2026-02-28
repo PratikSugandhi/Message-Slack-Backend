@@ -1,6 +1,10 @@
-import messageRepository from "../repositories/messageRepository.js";
+import { StatusCodes } from "http-status-codes";
+
 import channelRepository from "../repositories/channelRepository.js";
-export const getMessagesService = async (messageParams, page, limit) => {
+import messageRepository from "../repositories/messageRepository.js";
+import ClientError from "../utils/errors/clientError.js";
+import { isUserMemberOfWorkspace } from "./workspaceService.js";
+export const getMessagesService = async (messageParams, page, limit,user) => {
 
     const channelDetails = await channelRepository.getChannelWithWorkspaceDetails(
     messageParams.channelId
