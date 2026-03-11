@@ -120,6 +120,25 @@ const workspaceRepository = {
 
     return workspace;
   },
+  removeChannelFromWorkspace: async function (workspaceId, channelId) {
+    const workspace = await Workspace.findByIdAndUpdate(
+      workspaceId,
+      { $pull: { channels: channelId } },
+      { new: true }
+    )
+      .populate('members.memberId', 'username email avatar')
+      .populate('channels');
+
+    if (!workspace) {
+      throw new ClientError({
+        explanation: 'Invalid data sent from the client',
+        message: 'Workspace not found',
+        statusCode: StatusCodes.NOT_FOUND
+      });
+    }
+
+    return workspace;
+  },
   fetchAllWorkspaceByMemberId: async function (memberId) {
     const workspaces = await Workspace.find({
       'members.memberId': memberId

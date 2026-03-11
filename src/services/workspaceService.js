@@ -96,7 +96,10 @@ export const deleteWorkspaceService = async (workspaceId, userId) => {
 
 export const getWorkspaceService = async (workspaceId, userId) => {
   try {
-    const workspace = await workspaceRepository.getById(workspaceId);
+    // Fetch workspace with populated channels and member details
+    const workspace = await workspaceRepository.getWorkspaceDetailsById(
+      workspaceId
+    );
     if (!workspace) {
       throw new ClientError({
         explanation: 'Invalid data sent from the client',
@@ -276,9 +279,20 @@ const isUserAdminOfWorkspace = (workspace, userId) => {
 };
 
 export const isUserMemberOfWorkspace = (workspace, userId) => {
-  return workspace.members.find(
-    (member) => member.memberId.toString() === userId
-  );
+  return workspace.members.find((member) => {
+    // memberId can be an ObjectId or a populated user document
+    if (!member.memberId) return false;
+
+    if (typeof member.memberId === 'string') {
+      return member.memberId.toString() === userId.toString();
+    }
+
+    if (member.memberId._id) {
+      return member.memberId._id.toString() === userId.toString();
+    }
+
+    return member.memberId.toString() === userId.toString();
+  });
 };
 
 const isChannelAlreadyPartOfWorkspace = (workspace, channelName) => {
