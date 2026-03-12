@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
+
 const userSchema = new mongoose.Schema(
   {
     email: {
@@ -28,20 +30,31 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String
+    },
+    isVerified: {
+      type: Boolean,
+      default: false
+    },
+    verificationToken: {
+      type: String
+    },
+    verificationTokenExpiry: {
+      type: Date
     }
   },
   { timestamps: true }
 );
 // Remeber when you are using promise based syntax like async then do not ccall next() and do not use it in middleware.But if you are using cb function then there you have to use next() while creating middlewaare
 userSchema.pre('save', function saveUser() {
-  const user = this;
-  // Encrypting the passwrds via bcrypt
-  const SALT = bcrypt.genSaltSync(9);
-  const hashedPassword = bcrypt.hashSync(user.password, SALT);
-  user.password = hashedPassword;
-
-  //to give a random avtar to users.
-  user.avatar = `https://robohash.org/${user.username}`;
+  if (this.isNew) {
+    const user = this;
+    const SALT = bcrypt.genSaltSync(9);
+    const hashedPassword = bcrypt.hashSync(user.password, SALT);
+    user.password = hashedPassword;
+    user.avatar = `https://robohash.org/${user.username}`;
+    user.verificationToken = uuidv4().substring(0, 10).toUpperCase();
+    user.verificationTokenExpiry = Date.now() + 3600000; // 1 hour
+  }
 });
 
 const User = mongoose.model('User', userSchema);
