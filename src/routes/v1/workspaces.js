@@ -5,6 +5,7 @@ import { deleteWorkspaceController } from '../../controllers/workspaceController
 import { createWorkspaceController } from '../../controllers/workspaceController.js';
 import { getWorkspaceController } from '../../controllers/workspaceController.js';
 import { getWorkspaceByJoinCodeController } from '../../controllers/workspaceController.js';
+import { resetJoinCodeController } from '../../controllers/workspaceController.js';
 import { updateWorkspaceController } from '../../controllers/workspaceController.js';
 import { addMemberToWorkspaceController } from '../../controllers/workspaceController.js';
 import { addChannelToWorkspaceController } from '../../controllers/workspaceController.js';
@@ -38,5 +39,11 @@ router.put('/:workspaceId/members',isAuthenticated,validate(addMemberToWorkspace
 
 router.put('/:workspaceId/channels',isAuthenticated,validate(addChannelToWorkspaceSchema),addChannelToWorkspaceController);
 
+
+router.put(
+  '/:workspaceId/joinCode/reset',
+  isAuthenticated,
+  resetJoinCodeController
+);
 
 export default router;
