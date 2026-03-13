@@ -6,6 +6,7 @@ export default function messageHandlers(io, socket) {
     console.log(data, typeof data);
     const { channelId } = data;
     const messageResponse = await createMessageService(data);
+     console.log('Channel', channelId);
     // socket.broadcast.emit(NEW_MESSAGE_RECEIVED_EVENT, messageResponse);
     io.to(channelId).emit(NEW_MESSAGE_RECEIVED_EVENT, messageResponse); // Implementation of rooms
     // here cb is acknowlegment

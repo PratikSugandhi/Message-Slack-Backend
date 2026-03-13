@@ -75,7 +75,7 @@ export const deleteWorkspaceService = async (workspaceId, userId) => {
         statusCode: StatusCodes.NOT_FOUND
       });
     }
-    console.log(workspace.members, userId);
+    
     const isAllowed = isUserAdminOfWorkspace(workspace, userId);
     if (isAllowed) {
       await channelRepository.deleteMany(workspace.channels);
