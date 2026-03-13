@@ -11,7 +11,7 @@ export const getChannelByIdService = async (channelId, userId) => {
     const channel =
       await channelRepository.getChannelWithWorkspaceDetails(channelId);
 
-    console.log(channel);
+  
 
     if (!channel || !channel.workspaceId) {
       throw new ClientError({

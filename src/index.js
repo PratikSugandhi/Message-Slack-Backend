@@ -15,7 +15,11 @@ import apiRouter from './routes/apiRoutes.js'
 const app = express();
 
 const server = createServer(app); // create the http server on app or express server.
-const io = new Server(server);  // create the socket io server on http server
+const io = new Server(server, {
+  cors: {
+    origin: '*'
+  }
+});
 app.use(cors());
 
 app.use(express.json());
@@ -32,6 +36,7 @@ app.get('/ping', (req, res) => {
 });
 
 io.on('connection', (socket) => {
+   console.log('a user connected', socket.id);
    MessageSocketHandlers(io, socket);
   ChannelSocketHandlers(io, socket);
 });
