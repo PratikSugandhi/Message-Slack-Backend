@@ -27,3 +27,11 @@ export const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
 export const APP_LINK = process.env.APP_LINK || 'http://localhost:3000';
 
 export const ENABLE_EMAIL_VERIFICATION =process.env.ENABLE_EMAIL_VERIFICATION || false;
+
+export const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+
+export const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID;
+
+export const CURRENCY = process.env.CURRENCY || 'INR';
+
+export const RECEIPT_SECRET = process.env.RECEIPT_SECRET || 'receipt_1103';
