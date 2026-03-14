@@ -1,7 +1,8 @@
 import express from 'express';
-import messageRouter from './messages.js';
+
 import channelRouter from '../v1/channel.js'
 import memberRouter from './members.js'
+import messageRouter from './message.js';
 import userRouter from './users.js';
 import workspaceRouter from './workspaces.js'
 

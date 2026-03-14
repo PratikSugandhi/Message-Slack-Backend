@@ -32,7 +32,18 @@ export const getMessagesService = async (messageParams, page, limit,user) => {
 };
 
 export const createMessageService = async (message) => {
-  const newMessage = await messageRepository.create(message);
+
+  const channelDetails = await channelRepository.getChannelWithWorkspaceDetails(
+    message.channelId
+  );
+
+  const workspaceId = channelDetails.workspaceId;
+
+  const newMessage = await messageRepository.create({
+    ...message,
+    workspaceId
+  });
+
   const messageDetails = await messageRepository.getMessageDetails(
     newMessage._id
   );
