@@ -1,5 +1,5 @@
 import express from 'express';
-
+import messageRouter from './messages.js';
 import channelRouter from '../v1/channel.js'
 import memberRouter from './members.js'
 import userRouter from './users.js';
@@ -13,5 +13,7 @@ router.use('/workspaces', workspaceRouter);
 router.use('/channels', channelRouter);
 
 router.use('/members', memberRouter);
+
+router.use('/messages', messageRouter);
 
 export default router;
