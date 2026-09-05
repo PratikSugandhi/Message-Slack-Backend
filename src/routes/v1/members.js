@@ -4,6 +4,10 @@ import { isMemberPartOfWorkspaceController } from '../../controllers/memberContr
 import { isAuthenticated } from '../../middlewares/authMiddleware.js';
 const router = express.Router();
 
-router.get('/workspace/:workspace',isAuthenticated,isMemberPartOfWorkspaceController);
+router.get(
+  '/workspace/:workspace',
+  isAuthenticated,
+  isMemberPartOfWorkspaceController
+);
 
 export default router;

@@ -16,7 +16,7 @@ export const getChannelByIdController = async (req, res) => {
       req.params.channelId,
       req.user
     );
-    
+
     return res
       .status(StatusCodes.OK)
       .json(successResponse(response, 'Channel fetched successfully'));
@@ -34,10 +34,7 @@ export const getChannelByIdController = async (req, res) => {
 
 export const deleteChannelController = async (req, res) => {
   try {
-    const response = await deleteChannelService(
-      req.params.channelId,
-      req.user
-    );
+    const response = await deleteChannelService(req.params.channelId, req.user);
 
     return res
       .status(StatusCodes.OK)

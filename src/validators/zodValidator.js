@@ -8,16 +8,15 @@ export const validate = (schema) => {
       await schema.parseAsync(req.body);
       next();
     } catch (error) {
-      
       let explanation = [];
-      let errorMessage='';
+      let errorMessage = '';
       error.errors.forEach((key) => {
-        explanation.push(key.path[0] + ' '+key.message);
-        errorMessage += ' : ' + key.path[0]+ key.message;
+        explanation.push(key.path[0] + ' ' + key.message);
+        errorMessage += ' : ' + key.path[0] + key.message;
       });
       res.status(StatusCodes.BAD_REQUEST).json(
         customErrorResponse({
-          message: 'Validation error'+ errorMessage,
+          message: 'Validation error' + errorMessage,
           explanation: explanation
         })
       );

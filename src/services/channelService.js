@@ -11,8 +11,6 @@ export const getChannelByIdService = async (channelId, user) => {
     const channel =
       await channelRepository.getChannelWithWorkspaceDetails(channelId);
 
-  
-
     if (!channel || !channel.workspaceId) {
       throw new ClientError({
         message: 'Channel not found with the provided ID',

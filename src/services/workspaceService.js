@@ -75,7 +75,7 @@ export const deleteWorkspaceService = async (workspaceId, userId) => {
         statusCode: StatusCodes.NOT_FOUND
       });
     }
-    
+
     const isAllowed = isUserAdminOfWorkspace(workspace, userId);
     if (isAllowed) {
       await channelRepository.deleteMany(workspace.channels);
@@ -97,9 +97,8 @@ export const deleteWorkspaceService = async (workspaceId, userId) => {
 export const getWorkspaceService = async (workspaceId, userId) => {
   try {
     // Fetch workspace with populated channels and member details
-    const workspace = await workspaceRepository.getWorkspaceDetailsById(
-      workspaceId
-    );
+    const workspace =
+      await workspaceRepository.getWorkspaceDetailsById(workspaceId);
     if (!workspace) {
       throw new ClientError({
         explanation: 'Invalid data sent from the client',
@@ -134,7 +133,7 @@ export const getWorkspaceByJoinCodeService = async (joinCode, userId) => {
       });
     }
 
-   const isMember = isUserMemberOfWorkspace(workspace, userId);
+    const isMember = isUserMemberOfWorkspace(workspace, userId);
     if (!isMember) {
       throw new ClientError({
         explanation: 'User is not a member of the workspace',
@@ -149,8 +148,11 @@ export const getWorkspaceByJoinCodeService = async (joinCode, userId) => {
   }
 };
 
-
-export const updateWorkspaceService = async (workspaceId,workspaceData,userId) => {
+export const updateWorkspaceService = async (
+  workspaceId,
+  workspaceData,
+  userId
+) => {
   try {
     const workspace = await workspaceRepository.getById(workspaceId);
     if (!workspace) {
@@ -168,8 +170,10 @@ export const updateWorkspaceService = async (workspaceId,workspaceData,userId) =
         statusCode: StatusCodes.UNAUTHORIZED
       });
     }
-    const updatedWorkspace = await workspaceRepository.update(workspaceId,
-workspaceData);
+    const updatedWorkspace = await workspaceRepository.update(
+      workspaceId,
+      workspaceData
+    );
     return updatedWorkspace;
   } catch (error) {
     console.log('update workspace service error', error);
@@ -177,7 +181,12 @@ workspaceData);
   }
 };
 
-export const addMemberToWorkspaceService = async (workspaceId,memberId,role,userId) => {
+export const addMemberToWorkspaceService = async (
+  workspaceId,
+  memberId,
+  role,
+  userId
+) => {
   try {
     const workspace = await workspaceRepository.getById(workspaceId);
     if (!workspace) {
@@ -228,9 +237,14 @@ export const addMemberToWorkspaceService = async (workspaceId,memberId,role,user
   }
 };
 
-export const addChannelToWorkspaceService = async (workspaceId,channelName,userId) => {
+export const addChannelToWorkspaceService = async (
+  workspaceId,
+  channelName,
+  userId
+) => {
   try {
-    const workspace =await workspaceRepository.getWorkspaceDetailsById(workspaceId);
+    const workspace =
+      await workspaceRepository.getWorkspaceDetailsById(workspaceId);
     if (!workspace) {
       throw new ClientError({
         explanation: 'Invalid data sent from the client',
@@ -247,7 +261,10 @@ export const addChannelToWorkspaceService = async (workspaceId,channelName,userI
         statusCode: StatusCodes.UNAUTHORIZED
       });
     }
-    const isChannelPartOfWorkspace = isChannelAlreadyPartOfWorkspace(workspace,channelName);
+    const isChannelPartOfWorkspace = isChannelAlreadyPartOfWorkspace(
+      workspace,
+      channelName
+    );
     if (isChannelPartOfWorkspace) {
       throw new ClientError({
         explanation: 'Invalid data sent from the client',
@@ -255,8 +272,11 @@ export const addChannelToWorkspaceService = async (workspaceId,channelName,userI
         statusCode: StatusCodes.FORBIDDEN
       });
     }
-        console.log('addChannelToWorkspaceService', workspaceId, channelName);
-    const response = await workspaceRepository.addChannelToWorkspace(workspaceId,channelName);
+    console.log('addChannelToWorkspaceService', workspaceId, channelName);
+    const response = await workspaceRepository.addChannelToWorkspace(
+      workspaceId,
+      channelName
+    );
 
     return response;
   } catch (error) {
@@ -317,7 +337,6 @@ export const resetWorkspaceJoinCodeService = async (workspaceId, userId) => {
     throw error;
   }
 };
-
 
 export const joinWorkspaceService = async (workspaceId, joinCode, userId) => {
   try {

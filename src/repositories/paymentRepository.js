@@ -4,13 +4,9 @@ import crudRepository from './crudRepository.js';
 const paymentRepository = {
   ...crudRepository(Payment),
   updateOrder: async function (orderId, data) {
-    const updatedDoc = await Payment.findOneAndUpdate(
-      { orderId },
-      data,
-      {
-        new: true
-      }
-    );
+    const updatedDoc = await Payment.findOneAndUpdate({ orderId }, data, {
+      new: true
+    });
     return updatedDoc;
   }
 };

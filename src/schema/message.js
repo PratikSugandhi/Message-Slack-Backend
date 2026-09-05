@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 
-const messageSchema = new mongoose.Schema({
-  body: {
-    type: String,
-    required: [true, 'Message body is required']
-  },
-   image: {
+const messageSchema = new mongoose.Schema(
+  {
+    body: {
+      type: String,
+      required: [true, 'Message body is required']
+    },
+    image: {
       type: String
     },
     channelId: {
@@ -23,7 +24,9 @@ const messageSchema = new mongoose.Schema({
       ref: 'Workspace',
       required: [true, 'Workspace ID is required']
     }
-},{ timestamps: true });
+  },
+  { timestamps: true }
+);
 
 const Message = mongoose.model('Message', messageSchema);
 

@@ -1,15 +1,14 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from 'http-status-codes';
 
-import User from "../schema/user.js";
-import Workspace from "../schema/workspace.js";
-import ClientError from "../utils/errors/clientError.js";
-import channelRepository from "./channelRepository.js";
-import crudRepository from "./crudRepository.js";
-
+import User from '../schema/user.js';
+import Workspace from '../schema/workspace.js';
+import ClientError from '../utils/errors/clientError.js';
+import channelRepository from './channelRepository.js';
+import crudRepository from './crudRepository.js';
 
 const workspaceRepository = {
   ...crudRepository(Workspace),
-  
+
   getWorkspaceDetailsById: async function (workspaceId) {
     const workspace = await Workspace.findById(workspaceId)
       .populate('members.memberId', 'username email avatar')
@@ -113,7 +112,10 @@ const workspaceRepository = {
       });
     }
 
-    const channel = await channelRepository.create({ name: channelName, workspaceId: workspaceId });
+    const channel = await channelRepository.create({
+      name: channelName,
+      workspaceId: workspaceId
+    });
 
     workspace.channels.push(channel);
     await workspace.save();

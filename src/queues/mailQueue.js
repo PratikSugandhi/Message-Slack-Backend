@@ -1,4 +1,4 @@
-import Queue from 'bull'
+import Queue from 'bull';
 
 import redisConfig from '../config/redisConfig.js';
 

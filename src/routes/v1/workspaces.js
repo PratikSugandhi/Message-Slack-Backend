@@ -24,24 +24,35 @@ router.post(
   createWorkspaceController
 );
 
-
 router.get('/', isAuthenticated, getWorkspacesUserIsMemberOfController);
 
 router.delete('/:workspaceId', isAuthenticated, deleteWorkspaceController);
 
 router.get('/:workspaceId', isAuthenticated, getWorkspaceController);
 
-
-router.get('/join/:joinCode',isAuthenticated,getWorkspaceByJoinCodeController);
+router.get(
+  '/join/:joinCode',
+  isAuthenticated,
+  getWorkspaceByJoinCodeController
+);
 
 router.put('/:workspaceId/join', isAuthenticated, joinWorkspaceController);
 
 router.put('/:workspaceId', isAuthenticated, updateWorkspaceController);
 
-router.put('/:workspaceId/members',isAuthenticated,validate(addMemberToWorkspaceSchema),addMemberToWorkspaceController);
+router.put(
+  '/:workspaceId/members',
+  isAuthenticated,
+  validate(addMemberToWorkspaceSchema),
+  addMemberToWorkspaceController
+);
 
-router.put('/:workspaceId/channels',isAuthenticated,validate(addChannelToWorkspaceSchema),addChannelToWorkspaceController);
-
+router.put(
+  '/:workspaceId/channels',
+  isAuthenticated,
+  validate(addChannelToWorkspaceSchema),
+  addChannelToWorkspaceController
+);
 
 router.put(
   '/:workspaceId/joinCode/reset',

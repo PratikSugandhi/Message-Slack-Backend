@@ -2,7 +2,7 @@
 
 // Without importing it, the processor will never register itself to the queue — and your jobs will just sit in Redis unprocessed.
 
-import '../processors/mailProcessor.js'
+import '../processors/mailProcessor.js';
 
 import mailQueue from '../queues/mailQueue.js';
 export const addEmailtoMailQueue = async (emailData) => {

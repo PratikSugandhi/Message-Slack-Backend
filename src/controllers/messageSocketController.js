@@ -1,12 +1,15 @@
 import { createMessageService } from '../services/messageService.js';
-import { NEW_MESSAGE_EVENT, NEW_MESSAGE_RECEIVED_EVENT } from '../utils/common/eventConstants.js';
+import {
+  NEW_MESSAGE_EVENT,
+  NEW_MESSAGE_RECEIVED_EVENT
+} from '../utils/common/eventConstants.js';
 
 export default function messageHandlers(io, socket) {
   socket.on(NEW_MESSAGE_EVENT, async function createMessageHandler(data, cb) {
     console.log(data, typeof data);
     const { channelId } = data;
     const messageResponse = await createMessageService(data);
-     console.log('Channel', channelId);
+    console.log('Channel', channelId);
     // socket.broadcast.emit(NEW_MESSAGE_RECEIVED_EVENT, messageResponse);
     io.to(channelId).emit(NEW_MESSAGE_RECEIVED_EVENT, messageResponse); // Implementation of rooms
     // here cb is acknowlegment

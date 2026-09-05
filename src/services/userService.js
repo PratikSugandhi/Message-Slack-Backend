@@ -40,13 +40,12 @@ export const signUpService = async (data) => {
   }
 };
 
-// SignIn service logic 
-
+// SignIn service logic
 
 export const signInService = async (data) => {
   try {
     const user = await userRepository.getByEmail(data.email);
-    
+
     if (!user) {
       throw new ClientError({
         explanation: 'Invalid data sent from the client',
@@ -70,7 +69,7 @@ export const signInService = async (data) => {
       username: user.username,
       avatar: user.avatar,
       email: user.email,
-       _id: user._id,
+      _id: user._id,
       token: createJWT({ id: user._id, email: user.email })
     };
   } catch (error) {
@@ -103,8 +102,6 @@ export const verifyTokenService = async (token) => {
     user.verificationToken = null;
     user.verificationTokenExpiry = null;
     await user.save();
-
-    
 
     return user;
   } catch (error) {

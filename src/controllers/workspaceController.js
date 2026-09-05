@@ -1,10 +1,23 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { verifyTokenService } from '../services/userService.js';
-import { addChannelToWorkspaceService,addMemberToWorkspaceService, getWorkspaceByJoinCodeService, getWorkspaceService,getWorkspacesUserIsMemberOfService ,joinWorkspaceService,resetWorkspaceJoinCodeService,updateWorkspaceService} from '../services/workspaceService.js';
+import {
+  addChannelToWorkspaceService,
+  addMemberToWorkspaceService,
+  getWorkspaceByJoinCodeService,
+  getWorkspaceService,
+  getWorkspacesUserIsMemberOfService,
+  joinWorkspaceService,
+  resetWorkspaceJoinCodeService,
+  updateWorkspaceService
+} from '../services/workspaceService.js';
 import { deleteWorkspaceService } from '../services/workspaceService.js';
 import { createWorkspaceService } from '../services/workspaceService.js';
-import { customErrorResponse, internalErrorResponse,successResponse } from '../utils/common/responseObjects.js';
+import {
+  customErrorResponse,
+  internalErrorResponse,
+  successResponse
+} from '../utils/common/responseObjects.js';
 
 export const createWorkspaceController = async (req, res) => {
   try {
@@ -86,7 +99,6 @@ export const getWorkspaceController = async (req, res) => {
       .json(internalErrorResponse(error));
   }
 };
-
 
 export const getWorkspaceByJoinCodeController = async (req, res) => {
   try {
@@ -200,7 +212,6 @@ export const resetJoinCodeController = async (req, res) => {
       .json(internalErrorResponse(error));
   }
 };
-
 
 export const joinWorkspaceController = async (req, res) => {
   try {
