@@ -17,14 +17,10 @@ const app = express();
 const server = createServer(app); // create the http server on app or express server.
 const io = new Server(server, {
   cors: {
-    origin: "https://messageslackbackend.onrender.com",
-    credentials: true
+    origin: '*'
   }
 });
-app.use(cors({
-    origin: "https://messageslackbackend.onrender.com",
-    credentials: true
-}));
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
